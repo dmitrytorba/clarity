@@ -1,0 +1,13 @@
+{
+    "languages": [
+        {
+            "languageId": "clarity",
+            "scopes": ["source.clar"],
+            "syntaxes": [
+                "Packages/Lisp/Lisp.sublime-syntax",
+            ],
+        },
+    ],
+    "initializationOptions": {},
+    "settings": {},
+}
