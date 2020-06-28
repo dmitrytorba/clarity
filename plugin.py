@@ -4,12 +4,12 @@ import webbrowser
 from lsp_utils import NpmClientHandler
 
 def plugin_loaded():
-    LspEslintPlugin.setup()
+    ClarityPlugin.setup()
 
 def plugin_unloaded():
-    LspEslintPlugin.cleanup()
+    ClarityPlugin.cleanup()
 
-class LspEslintPlugin(NpmClientHandler):
+class ClarityPlugin(NpmClientHandler):
     package_name = __package__
     server_directory = 'clarity-language-server'
     server_binary_path = os.path.join(

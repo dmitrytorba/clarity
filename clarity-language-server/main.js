@@ -25,6 +25,7 @@ if (process.platform === 'linux') {
     binaryName = 'clarity-lsp-linux';
 }
 binaryUrl += binaryName;
+binaryName = '/tmp/' + binaryName;
 
 const download = (url, path, callback) => {
   request.head(url, (err, res, body) => {
@@ -39,9 +40,9 @@ const startServer = (err) => {
         logger.error(err)
     } else {
         const fd = fs.openSync(binaryName, "r");
-        fs.fchmodSync(fd, 0o777);
+        fs.fchmodSync(fd, 0o544);
         logger.info('starting server');
-        const childProcess = spawn('./' + binaryName, [],
+        const childProcess = spawn(binaryName, [],
             {stdio: [process.stdin, process.stdout, process.stderr]});
         logger.info('exiting');
     }
