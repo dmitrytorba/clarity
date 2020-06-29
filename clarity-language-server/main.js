@@ -23,29 +23,41 @@ const logger = pino({
 var binaryUrl = 'https://github.com/lgalabru/clarity-lsp/releases/download/2020-05-27/'
 if (process.platform === 'linux') {
     binaryName = 'clarity-lsp-linux';
+    binaryPath = '/tmp/' + binaryName;
+} else if (process.platform === 'darwin') {
+    binaryName = 'clarity-lsp-mac';
+    binaryPath = '/tmp/' + binaryName;
+} else if (process.platform === 'win32') {
+    binaryName = 'clarity-lsp-windows.exe';
+    binaryPath = '%TEMP%\\' + binaryName;
 }
 binaryUrl += binaryName;
-binaryName = '/tmp/' + binaryName;
-
-const download = (url, path, callback) => {
-  request.head(url, (err, res, body) => {
-    request(url)
-      .pipe(fs.createWriteStream(path))
-      .on('close', callback)
-  })
-}
 
 const startServer = (err) => {
     if (err) {
         logger.error(err)
     } else {
-        const fd = fs.openSync(binaryName, "r");
-        fs.fchmodSync(fd, 0o544);
         logger.info('starting server');
-        const childProcess = spawn(binaryName, [],
+        const childProcess = spawn(binaryPath, [],
             {stdio: [process.stdin, process.stdout, process.stderr]});
         logger.info('exiting');
     }
 }
 
-download(binaryUrl, binaryName, startServer);
+const download = (url, path) => {
+  request.head(url, (err, res, body) => {
+    request(url)
+      .pipe(fs.createWriteStream(path))
+      .on('close', (err) => {
+          const fd = fs.openSync(path, "r");
+          fs.fchmodSync(fd, 0o544);
+          startServer();
+      })
+  })
+}
+
+if (fs.existsSync(binaryPath)) {
+    startServer();
+} else {
+    download(binaryUrl, binaryPath);
+}
