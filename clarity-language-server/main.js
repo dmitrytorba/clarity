@@ -32,8 +32,6 @@ const logger = pino({
   enabled: (process.env.LOG === 'true')
 }, multistream(streams))
 
-
-
 const startServer = (err) => {
     if (err) {
         logger.error(err)
