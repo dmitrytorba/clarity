@@ -12,7 +12,7 @@ This project uses the [Clarity Language Server](https://github.com/lgalabru/clar
 - Make sure you have [NodeJS and NPM](https://nodejs.org/) installed.
 - Launch Sublime's Package Control: Install Package (Ctrl-Shift-P)
 - Install the `LSP` Package
-- Download the [package zip file](https://github.com/dmitrytorba/clarity/archive/v0.1.1.zip)
+- Download the [package zip file](https://github.com/dmitrytorba/clarity/releases){:target="_blank"}
 - Click the `Preferences > Browse Packages…` menu
 - Unzip the package zip file here in the `Package` folder
 - Rename the extracted folder to `clarity`
