@@ -14,7 +14,7 @@ if (process.platform === 'linux') {
     binaryPath = '/tmp/';
 } else if (process.platform === 'win32') {
     binaryName = 'clarity-lsp-windows.exe';
-    binaryPath = '%TEMP%\\';
+    binaryPath = '.\\';
 }
 binaryUrl += binaryName;
 
